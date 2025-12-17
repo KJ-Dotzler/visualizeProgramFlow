@@ -14,34 +14,34 @@
                 padding: 12px; min-height: 100px; overflow: auto;}
         </style>
     </head>
-    <body>
-        <div>
-            <h1></h1>
+    <body class="bg-gray-50 text-gray-800 min-h-screen p-6">
+        <div class="max-width-4xl mx-auto space-y-6">
+            <h1 class="text-2xl font-semibold">Step-by-Step for loop Visualizer</h1>
 
-            <section>
+            <section class="bg-white shadow rounded p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label></label>
-                    <input>
+                    <label class="block text-sm font-medium">Start value for i variable</label>
+                    <input id="input-start" class="mt-1 p-2 border rounded w-full" type="number" value="0">
                 </div>
 
                 <div>
-                    <label></label>
-                    <select>
-                        <option></option>
-                        <option></option>
-                        <option></option>
-                        <option></option>
+                    <label class="block text-sm font-medium">Comparator</label>
+                    <select id="input-comparator" class="mt-1 p-2 border shadow rounded w-full">
+                        <option value="<">&lt;</option>
+                        <option value="<=">&le;</option>
+                        <option value=">">&gt;</option>
+                        <option value=">=">&ge;</option>
                     </select>
                 </div>
 
                 <div>
-                    <label></label>
-                    <input>
+                    <label class="block text-sm font-medium">Final Value</label>
+                    <input id="input-end" class="mt-1 p-2 border shadow rounded w-full" type="number" value="5">
                 </div>
 
                 <div>
-                    <label></label>
-                    <input>
+                    <label class="block text-sm font-medium">Step label</label>
+                    <input id="">
                 </div>
 
                 <div>
@@ -115,19 +115,45 @@
 
         <script>
             const state = {
-                start: ;
-                end:  ;
-                step:  ;
-                comparator:  ;
-                bodyExpr:  ;
-                i:  ;
-                iteration:  ;
-                phase:  ;
-                initialized:  ;
-                runningInterval:  ;
+                start: ,
+                end:  ,
+                step:  ,
+                comparator:  ,
+                bodyExpr:  ,
+                i:  ,
+                iteration:  ,
+                phase:  ,
+                initialized:  ,
+                runningInterval:  ,
 
             };
-            const el = {};
+            const el = {
+                start:  ,
+                end:  ,
+                step:  ,
+                comparator:  ,
+                body:  ,
+                btnInit:  ,
+                btnStep:  ,
+                btnRun:  ,
+                btnReset:  ,
+                output:  ,
+                varI:  ,
+                varIteration:  ,
+                varPhase:  ,
+                codeStart:  ,
+                codeCond:  ,
+                codeBody:  ,
+                codeStep:  ,
+                speed:  ,
+                lines: [
+                     ,
+                     ,
+                     ,
+                     ,
+                     ,
+                ]
+            };
             function refreshCodeDisplay() {};
             function refreshVars() {};
             function highlightLine(idx) {};
