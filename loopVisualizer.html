@@ -41,74 +41,78 @@
 
                 <div>
                     <label class="block text-sm font-medium">Step label</label>
-                    <input id="">
+                    <input id="input-step">
                 </div>
 
-                <div>
-                    <label></label>
-                    <input>
-                    <p></p>
+                <div class md:col-span-2>
+                    <label class="block text-sm font-medium">Body Expression (use <span class="font-mono">i</span></label>
+                    <input id="input-body" class="mt-1 p-2 border rounded w-full font-mono" type="text" value="i" />
+                    <p class="text-xs text-gray-500 mt-1">Expression should evaluate to a value to print.
+                         Example: <span class="font-mono">i * 2</span>
+                          or <span class="font-mono">`item: ${i}`</span></p>
                 </div>
 
-                <div>
-                    <button></button>
-                    <button></button>
-                    <button></button>
-                    <button></button>
+                <div class="flex items-end gap-2">
+                    <button id="btn-init" class="px-3 py-2 bg-blue-600 text-white rounded">Init / Apply</button>
+                    <button id="btn-step" class="px-3 py-2 bg-green-600 text-white rounded">Step</button>
+                    <button id="btn-run" class="px-3 py-2 bg-indigo-600 text-white rounded">Run</button>
+                    <button id="btn-reset" class="px-3 py-2 bg-gray-600 text-white rounded">Reset</button>
                 </div>
 
-                <div>
-                    <label></label>
-                    <input>
+                <div class="flex items-end gap-2 justify-end">
+                    <label class="text-sm">Speed (ms)</label>
+                    <input id="input-speed" type="number" value="400" class="w-20 padding-2 border rounded"/>
                 </div>
             </section>
 
-            <section>
-                <div>
-                    <h2></h2>
-                    <div>
+            <section class="grid md:grid-cols-3 gap-4>
+                <div class="md:col-span-1 bg-white p-4 shadow rounded">
+                    <h2 class="font-medium mb-2">Code</h2>
+                    <div class="text-sm rounded border pd-2 bg-white">
                     <pre>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                        <span id="line-1" class="code-line line-pending">1: i = <span id="codeStart">0</span></span>
+                        <span id="line-2" class="code-line line-pending">2: while ( <span id="codeCond">i &lt; 5</span> ) {</span>
+                        <span id="line-3" class="code-line line-pending">3: //body: <span id="codeBody">print(i)</span></span>
+                        <span id="line-4" class="code-line line-pending">4: i = i +<span id="codeStep">1</span>;</span>
+                        <span id="line-5" class="code-line line-pending">5: }</span>
                     </pre>
-                    <p></p>
+                    <p class="text-xs text-gray-500 mt-2">This shows the loop in multiple steps: 
+                        initialization, condition, main body/operations, and loop increment.</p>
                 </div>
 
-                <div>
-                    <h2></h2>
-                    <div>
-                        <div>
-                            <div></div>
-                            <div></div>
+                <div class="bg-white p-4 shadow rounded">
+                    <h2 class="font-medium mb-2">Variables / State</h2>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <div class="text-sm text-gray-600">i</div>
+                            <div id="varI" class="font-mono">--</div>
                         </div>
 
-                        <div>
-                            <div></div>
-                            <div></div>
+                        <div class="flex justify-between">
+                            <div class="text-sm text-gray-600">Iteration</div>
+                            <div id="varIteration" class="font-mono">0</div>
                         </div>
 
-                        <div>
-                            <div></div>
-                            <div></div>
+                        <div class="flex justify-between">
+                            <div class="text-sm text-gray-600">Phase</div>
+                            <div id="varPhase" class="font-mono">not initialized</div>
                         </div>
                     </div>
                 </div>
 
-                <div>
-                    <h2></h2>
-                    <div></div>
-                    <div></div>
+                <div class="bg-white p-4 shadow rounded md:col-span-1">
+                    <h2 class="font-medium mb-2">Output (console)</h2>
+                    <div id="output" class="terminal rounded"></div>
+                    <div class="mt-3 text-xs text-gray-500">Output shows the returned value of the 
+                        body/operation</div>
                 </div>
             </section>
 
-            <section>
-                <h3></h3>
-                <ul>
-                    <li></li>
-                    <li></li>
+            <section class="bg-white p-4 shadow rounded">
+                <h3 class="font-medium">Tips</h3>
+                <ul class="list-disc ml-5 mt-2 text-sm text-gray-600">
+                    <li>Try negative steps and flip the comparator (&lt; to &gt; or reversed)</li>
+                    <li>If your expression throws and error, the stack trace/error message will be in the output</li>
                 </ul>
             </section>
         </div>
