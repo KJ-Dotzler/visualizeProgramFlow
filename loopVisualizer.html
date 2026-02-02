@@ -119,48 +119,74 @@
 
         <script>
             const state = {
-                start: ,
-                end:  ,
-                step:  ,
-                comparator:  ,
-                bodyExpr:  ,
-                i:  ,
-                iteration:  ,
-                phase:  ,
-                initialized:  ,
-                runningInterval:  ,
+                start: 0,
+                end:  5,
+                step:  1,
+                comparator: '<' ,
+                bodyExpr:  'i',
+                i:  null,
+                iteration:  0,
+                phase:  'init',
+                initialized:  false,
+                runningInterval:  null,
 
             };
             const el = {
-                start:  ,
-                end:  ,
-                step:  ,
-                comparator:  ,
-                body:  ,
-                btnInit:  ,
-                btnStep:  ,
-                btnRun:  ,
-                btnReset:  ,
-                output:  ,
-                varI:  ,
-                varIteration:  ,
-                varPhase:  ,
-                codeStart:  ,
-                codeCond:  ,
-                codeBody:  ,
-                codeStep:  ,
-                speed:  ,
+                start:  document.getElementById('input-start'),
+                end:  document.getElementById('input-end'),
+                step:  document.getElementById('input-step'),
+                comparator:  document.getElementById('input-comparator'),
+                body:  document.getElementById('input-body'),
+                btnInit:  document.getElementById('btn-init'),
+                btnStep:  document.getElementById('btn-step'),
+                btnRun:  document.getElementById('btn-run'),
+                btnReset:  document.getElementById('btn-reset'),
+                output:  document.getElementById('output'),
+                varI:  document.getElementById('varI'),
+                varIteration:  document.getElementById('varIteration'),
+                varPhase:  document.getElementById('varPhase'),
+                codeStart:  document.getElementById('codeStart'),
+                codeCond:  document.getElementById('codeCond'),
+                codeBody:  document.getElementById('codeBody'),
+                codeStep:  document.getElementById('codeStep'),
+                speed:  document.getElementById('input-speed'),
                 lines: [
-                     ,
-                     ,
-                     ,
-                     ,
-                     ,
+                     document.getElementById('line-1'),
+                     document.getElementById('line-2'),
+                     document.getElementById('line-3'),
+                     document.getElementById('line-4'),
+                     document.getElementById('line-5'),
                 ]
             };
-            function refreshCodeDisplay() {};
-            function refreshVars() {};
-            function highlightLine(idx) {};
+            function refreshCodeDisplay() {
+
+                el.codeStart.textContent = state.start;
+                el.codeCond.textContent = `i ${state.comparator} ${state.end}`;
+                el.codeBody.textContent = state.bodyExpr ? `print(${state.bodyExpr})` : 'print(i)';
+                el.codeStep.textContent = state.step;
+
+            };
+
+            function refreshVars() {
+
+                el.varI.textContent = state.i === null ? '--' : String(state.i);
+                el.varIteration.textContent = String(state.iteration);
+                el.varPhase.textContent = state.phase;
+
+            };
+
+            function highlightLine(idx) {
+
+                el.lines.forEach((ln, i) => {
+                    ln.classList.remove('line-active');
+                    ln.classList.add('line-pending');
+                });
+                if (idx >= 1 && idx <= el.lines.length) {
+                    el.lines[idx-1].classList.add('line-active');
+                }
+
+            };
+            
             function evalCondition(i) {};
             function evalBody(i) {};
             function appendOutputLine(text) {};
