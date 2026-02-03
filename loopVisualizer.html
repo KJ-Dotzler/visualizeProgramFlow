@@ -187,12 +187,104 @@
 
             };
             
-            function evalCondition(i) {};
-            function evalBody(i) {};
-            function appendOutputLine(text) {};
-            function applyInputs() {};
-            function initializeLoop() {};
-            function stepForward() {};
+            function evalCondition(i) {
+
+                switch (state.comparator) {
+                    case '<': return i < state.end;
+                    case '<=': return i <= state.end;
+                    case '>': return i > state.end;
+                    case '>=': return i >= state.end;                                
+                    default:
+                        return i < state.end;
+                }
+            };
+            function evalBody(i) {
+
+                try {
+                    const fn = new Function('i', `return (${state.bodyExpr});`);
+                    return fn(i);
+                }
+                catch(err){
+                    throw new Error('Error in body expression ' + err.message);
+                }
+
+            };
+
+            function appendOutputLine(text) {
+
+                const line = document.createElement('div');
+                line.textContent = String(text);
+                el.output.appendChild(line);
+                el.output.scrollTop = el.output.scrollHeight;
+
+            };
+
+            function applyInputs() {
+
+                state.start = Number(el.start.value);
+                state.end = Number(el.end.value);
+                state.step = Number(el.step.value) || 1;
+                state.comparator = el.comparator.value;
+                state.bodyExpr = el.body.value.trim() || 'i';
+                refreshCodeDisplay();
+
+            };
+
+            function initializeLoop() {
+
+                applyInputs();
+                state.i = Number(state.start);
+                state.iteration = 0;
+                state.phase = 'cond';
+                state.initialized = true;
+                el.output.innerHTML = '';
+                refreshVars();
+                highlightLine(2);
+
+            };
+
+            function stepForward() {
+
+                if (!state.initialized){
+                    initializeLoop();
+                    return;
+                }
+                if (state.phase === 'done'){
+                    return;
+                }
+                if (state.phase === 'cond'){
+                    highlightLine(2);
+                    const cond = evalCondition(state.i);
+                    if (cond){
+                        state.phase = 'body';
+                        refreshVars();
+                    }else{
+                        state.phase = 'done';
+                        highlightLine(5);
+                        refreshVars();
+                    }
+                }
+                else if (state.phase === 'body'){
+                    highlightLine(3);
+                    try{
+                        const printed = evalBody(state.i);
+                        appendOutputLine(printed);
+                    } catch (err) {
+                        appendOutputLine(String(err.message));
+                    }
+                    state.iteration += 1;
+                    state.phase = 'inc';
+                    refreshVars();
+                }
+                else if (state.phase === 'inc') {
+                    highlightLine(4);
+                    state.i = Number(state.i) + Number(state.step);
+                    state.phase = 'cond';
+                    refreshVars();
+                }
+
+
+            };
             function runAll() {};
             function resetLoop() {};
         </script>
